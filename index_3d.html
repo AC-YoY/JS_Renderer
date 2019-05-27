@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>作业 25</title>
+        <style>
+            canvas {
+                outline: 1px dashed lightskyblue;
+                position: fixed;
+                top: 40px;
+            }
+        </style>
+        <!-- 引入所有用到的文件 -->
+        <script src='utils.js'></script>
+        <script src='object.js'></script>
+        <script src='vector.js'></script>
+        <script src='color.js'></script>
+        <script src='vertex.js'></script>
+        <script src='matrix.js'></script>
+        <script src='texture.js'></script>
+        <script src='mesh.js'></script>
+        <script src='canvas.js'></script>
+    </head>
+    <body>
+        <canvas id="id-canvas" width="400" height="300"></canvas>
+<script>
+
+const __main = function() {
+//    let canvas = GuaCanvas.new('#id-canvas')
+    // part 1
+    // let v1 = GuaVertex.new(GuaVector.new(150, 10), GuaColor.red())
+    // let v2 = GuaVertex.new(GuaVector.new(10, 100), GuaColor.blue())
+    // let v3 = GuaVertex.new(GuaVector.new(300, 200), GuaColor.green())
+    // canvas.drawScanline(v1, v2)
+    // canvas.drawTriangle(v1, v2, v3)
+
+//    let mesh = GuaMesh.cube()
+//    canvas.drawMesh(mesh)
+//    //
+//    canvas.render()
+
+//    setInterval(function() {
+//        canvas.clear()
+////         mesh.rotation.x += 0.1
+//        mesh.rotation.y += 0.1
+//        canvas.drawMesh(mesh)
+//        //
+//        canvas.render()
+//    }, 200)
+    // let tm = new TestMatrix()
+    // tm.test()
+
+
+    loadMaterials()
+    window.addEventListener('materials_loaded', (e) => {
+        let {gua3d, guaImage} = e.detail
+        render(gua3d, guaImage)
+    })
+}
+
+const render = (gua3d, guaImage) => {
+    let canvas = GuaCanvas.new('#id-canvas')
+    let mesh = GuaMesh.fromGua3D(gua3d, guaImage)
+    canvas.drawMesh(mesh)
+    canvas.render()
+
+    setInterval(() => {
+        canvas.clear()
+//        mesh.rotation.x += 0.1
+        mesh.rotation.y += 0.1
+        canvas.drawMesh(mesh)
+        canvas.render()
+    }, 200)
+}
+
+const ajaxGet = function(url, callback) {
+    let r = new XMLHttpRequest()
+    r.open('GET', url, true)
+    r.onreadystatechange = function() {
+        if (r.readyState === 4) {
+            callback(r.response)
+        }
+    }
+    r.send()
+}
+
+const loadMaterials = function() {
+    let imageUrl = 'https://raw.githubusercontent.com/guaxiao/renderer.gua/master/illidan.guaimage'
+    let gua3dUrl = 'https://raw.githubusercontent.com/guaxiao/renderer.gua/master/illidan.gua3d'
+
+    ajaxGet(gua3dUrl, (gua3d) => {
+        ajaxGet(imageUrl, (guaImage) => {
+            let d = {
+                gua3d: gua3d,
+                guaImage: guaImage,
+            }
+            let e = new CustomEvent('materials_loaded', {detail: d})
+            window.dispatchEvent(e)
+        })
+    })
+}
+
+__main()
+</script>
+    </body>
+</html>
