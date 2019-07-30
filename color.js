@@ -1,4 +1,4 @@
-class GuaColor extends GuaObject {
+class Color extends Object {
     // 表示颜色的类
     constructor(r, g, b, a) {
         super()
@@ -22,7 +22,7 @@ class GuaColor extends GuaObject {
         let g = c1.g + (c2.g - c1.g) * factor
         let b = c1.b + (c2.b - c1.b) * factor
         let a = c1.a + (c2.a - c1.a) * factor
-        return GuaColor.new(r, g, b, a)
+        return Color.new(r, g, b, a)
     }
     equal(c) {
         if (this.r === c.r && this.g === c.g && this.b === c.b && this.a === c.a) {

@@ -1,16 +1,16 @@
-class GuaCamera extends GuaObject {
+class Camera extends Object {
     constructor() {
         super()
         // 镜头在世界坐标系中的坐标
-        this.position = GuaVector.new(0, 0, -10)
+        this.position = Vector.new(0, 0, -10)
         // 镜头看的地方
-        this.target = GuaVector.new(0, 0, 0)
+        this.target = Vector.new(0, 0, 0)
         // 镜头向上的方向
-        this.up = GuaVector.new(0, 1, 0)
+        this.up = Vector.new(0, 1, 0)
     }
 }
 
-class GuaCanvas extends GuaObject {
+class Canvas extends Object {
     constructor(selector) {
         super()
         let canvas = _e(selector)
@@ -22,7 +22,7 @@ class GuaCanvas extends GuaObject {
         this.zLevel = Array(this.w * this.h).fill(null)
         this.bytesPerPixel = 4
         // this.pixelBuffer = this.pixels.data
-        this.camera = GuaCamera.new()
+        this.camera = Camera.new()
     }
     render() {
         // 执行这个函数后, 才会实际地把图像画出来
@@ -30,10 +30,10 @@ class GuaCanvas extends GuaObject {
         let {pixels, context} = this
         context.putImageData(pixels, 0, 0)
     }
-    clear(color=GuaColor.transparent()) {
+    clear(color=Color.transparent()) {
         // 清空zLevel
         this.zLevel.fill(null, 0, this.w * this.h)
-        // color GuaColor
+        // color Color
         // 用 color 填充整个 canvas
         // 遍历每个像素点, 设置像素点的颜色
         let {w, h} = this
@@ -52,10 +52,10 @@ class GuaCanvas extends GuaObject {
         let i = (y * this.w + x) * this.bytesPerPixel
         // 设置像素
         let p = this.pixels.data
-        return GuaColor.new(p[i], p[i+1], p[i+2], p[i+3])
+        return Color.new(p[i], p[i+1], p[i+2], p[i+3])
     }
     _setPixel(x, y, color, z) {
-        // color: GuaColor
+        // color: Color
         // 这个函数用来设置像素点, _ 开头表示这是一个内部函数, 这是我们的约定
         // 浮点转 int
         let int = Math.round
@@ -77,8 +77,8 @@ class GuaCanvas extends GuaObject {
         p[i+2] = int(b)
         p[i+3] = int(a)
     }
-    drawPoint(point, color=GuaColor.black()) {
-        // point: GuaPoint
+    drawPoint(point, color=Color.black()) {
+        // point: Point
         let {w, h} = this
         let p = point
         if (p.x >= 0 && p.x <= w) {
@@ -87,7 +87,7 @@ class GuaCanvas extends GuaObject {
             }
         }
     }
-    drawLine(p1, p2, color=GuaColor.black()) {
+    drawLine(p1, p2, color=Color.black()) {
         let [x1, y1, x2, y2] = [p1.x, p1.y, p2.x, p2.y]
         let dx = x2 - x1
         let dy = y2 - y1
@@ -106,7 +106,7 @@ class GuaCanvas extends GuaObject {
         for (let r = 0; r <= R; r++) {
             const x = x1 + Math.cos(angle) * r
             const y = y1 + Math.sin(angle) * r
-            this.drawPoint(GuaVector.new(x, y, p1.z), color)
+            this.drawPoint(Vector.new(x, y, p1.z), color)
         }
     }
     drawScanline(v1, v2) {
@@ -121,7 +121,7 @@ class GuaCanvas extends GuaObject {
             }
             let color = a.color.interpolate(b.color, factor)
             // console.log(v1.position.z)
-            this.drawPoint(GuaVector.new(x, y, v1.position.z), color)
+            this.drawPoint(Vector.new(x, y, v1.position.z), color)
         }
     }
     drawTriangle(v1, v2, v3) {
@@ -166,8 +166,8 @@ class GuaCanvas extends GuaObject {
         let y = - point.y * h2 + h2
         let z = point.z // coordVector.position.z
 
-        let v = GuaVector.new(x, y, z)
-        return GuaVertex.new(v, coordVector.color)
+        let v = Vector.new(x, y, z)
+        return Vertex.new(v, coordVector.color)
     }
     drawMesh(mesh) {
         let self = this
@@ -202,10 +202,10 @@ class GuaCanvas extends GuaObject {
         const t = texture
         t.pixels.forEach((p, index) => {
             const [r, g, b, a] = p
-            const c = GuaColor.new(r, g, b, a)
+            const c = Color.new(r, g, b, a)
             const y = Math.floor(index / t.width)
             const x = index % t.width
-            this.drawPoint(GuaVector.new(x, y), c)
+            this.drawPoint(Vector.new(x, y), c)
         })
     }
     __debug_draw_demo() {

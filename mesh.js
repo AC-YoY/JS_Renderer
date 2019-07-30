@@ -1,19 +1,19 @@
-class GuaMesh extends GuaObject {
+class Mesh extends Object {
     // 表示三维物体的类
     constructor() {
         super()
 
-        this.position = GuaVector.new(0, -2, 0)
-        this.rotation = GuaVector.new(0, 0, 0)
-        this.scale = GuaVector.new(1, 1, 1)
+        this.position = Vector.new(0, -2, 0)
+        this.rotation = Vector.new(0, 0, 0)
+        this.scale = Vector.new(1, 1, 1)
         this.vertices = null
         this.indices = null
         this.texture = null
     }
-    static fromGua3D(gua3d, guaImage) {
-        this.texture = GuaTexture.new(guaImage)
+    static from3D(image3d, image) {
+        this.texture = Texture.new(image)
 
-        const list = gua3d.split('\n')
+        const list = image3d.split('\n')
         const index = Number(list[2].split(' ')[1])
         const triangleLength = Number(list[3].split(' ')[1])
 
@@ -29,9 +29,9 @@ class GuaMesh extends GuaObject {
         let vertexList = []
         vertices.forEach(p => {
             let [x, y, z, vx, vy, vz, u, v] = p.split(' ').map(e => Number(e))
-            let vertex = GuaVector.new(x, y ,z)
+            let vertex = Vector.new(x, y ,z)
             let c = this.texture.sample(u, v)
-            vertexList.push(GuaVertex.new(vertex, c))
+            vertexList.push(Vertex.new(vertex, c))
         })
         m.vertices = vertexList
 
@@ -55,10 +55,10 @@ class GuaMesh extends GuaObject {
 
         let vertices = []
         for (let i = 0; i < points.length; i += 3) {
-            let v = GuaVector.new(points[i], points[i+1], points[i+2])
-            // let c = GuaColor.randomColor()
-            let c = GuaColor.randomColor()
-            vertices.push(GuaVertex.new(v, c))
+            let v = Vector.new(points[i], points[i+1], points[i+2])
+            // let c = Color.randomColor()
+            let c = Color.randomColor()
+            vertices.push(Vertex.new(v, c))
         }
 
         // 12 triangles * 3 vertices each = 36 vertex indices

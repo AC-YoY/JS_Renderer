@@ -1,4 +1,4 @@
-class GuaVector extends GuaObject {
+class Vector extends Object {
     // 表示二维点的类
     constructor(x, y, z) {
         super()
@@ -12,7 +12,7 @@ class GuaVector extends GuaObject {
         let x = p1.x + (p2.x - p1.x) * factor
         let y = p1.y + (p2.y - p1.y) * factor
         let z = p1.z + (p2.z - p1.z) * factor
-        return GuaVector.new(x, y, z)
+        return Vector.new(x, y, z)
     }
     toString() {
         let s = ''
@@ -22,13 +22,13 @@ class GuaVector extends GuaObject {
         return s
     }
     multi_num(n) {
-        return GuaVector.new(this.x * n, this.y * n, this.z * n)
+        return Vector.new(this.x * n, this.y * n, this.z * n)
     }
     sub(v) {
         let x = this.x - v.x
         let y = this.y - v.y
         let z = this.z - v.z
-        return GuaVector.new(x, y, z)
+        return Vector.new(x, y, z)
     }
     length() {
         return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z)
@@ -49,6 +49,6 @@ class GuaVector extends GuaObject {
         let x = this.y * v.z - this.z * v.y
         let y = this.z * v.x - this.x * v.z
         let z = this.x * v.y - this.y * v.x
-        return GuaVector.new(x, y, z)
+        return Vector.new(x, y, z)
     }
 }

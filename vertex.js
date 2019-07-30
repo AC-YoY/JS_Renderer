@@ -1,5 +1,5 @@
-class GuaVertex extends GuaObject {
-    // 表示顶点的类, 包含 GuaVector 和 GuaColor
+class Vertex extends Object {
+    // 表示顶点的类, 包含 Vector 和 Color
     // 表示了一个坐标和一个颜色
     constructor(position, color) {
         super()
@@ -11,6 +11,6 @@ class GuaVertex extends GuaObject {
         let b = other
         let p = a.position.interpolate(b.position, factor)
         let c = a.color.interpolate(b.color, factor)
-        return GuaVertex.new(p, c)
+        return Vertex.new(p, c)
     }
 }

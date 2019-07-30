@@ -1,4 +1,4 @@
-class GuaTexture extends GuaObject {
+class Texture extends Object {
     // 表示三维物体的类
     constructor(source) {
         super()
@@ -33,11 +33,11 @@ class GuaTexture extends GuaObject {
             let tv = Math.abs(Math.floor(v * (this.height - 1)));
 
             let index = tu + tv * this.width;
-            const c = GuaColor.new(...this.pixels[index]);
+            const c = Color.new(...this.pixels[index]);
 
             return c;
         } else {
-            return GuaColor.randomColor()
+            return Color.randomColor()
         }
     }
 }
