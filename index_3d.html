@@ -85,10 +85,8 @@
     }
 
     const loadMaterials = function () {
-        let imageUrl = 'https://raw.githubusercontent.com/guaxiao/renderer.gua/master/illidan.guaimage'
-        let image3dUrl = 'https://raw.githubusercontent.com/guaxiao/renderer.gua/master/illidan.gua3d'
-        // let imageUrl = 'https://raw.githubusercontent.com/AC-YoY/JS_Renderer/master/illidan.image'
-        // let image3dUrl = 'https://raw.githubusercontent.com/AC-YoY/JS_Renderer/master/illidan.3d'
+        let imageUrl = 'https://raw.githubusercontent.com/AC-YoY/JS_Renderer/master/illidan.image'
+        let image3dUrl = 'https://raw.githubusercontent.com/AC-YoY/JS_Renderer/master/illidan.3d'
 
         ajaxGet(image3dUrl, (image3d) => {
             ajaxGet(imageUrl, (image) => {
