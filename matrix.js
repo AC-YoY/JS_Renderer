@@ -137,6 +137,6 @@ class Matrix extends Object {
         let z = v.x * m[2] + v.y * m[1*4+2] + v.z * m[2*4+2] + m[3*4+2]
         let w = v.x * m[3] + v.y * m[1*4+3] + v.z * m[2*4+3] + m[3*4+3]
 
-        return Vector.new(x / w, y / w, z / w)
+        return Vector.new(x / w, y / w, w / z)
     }
 }
